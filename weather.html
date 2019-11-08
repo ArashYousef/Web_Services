@@ -69,10 +69,15 @@
         // console.log(data);//Review all of the data returned
     		// console.log("Current Temp: " + data.currently.apparentTemperature);//View Today's Temp
     		// console.log("Tomorrow's High: " + data.daily.data[1].apparentTemperatureHigh);//View Tomorrow's High
-        // var unix_time = data.currently.time;//Retrieve the current timestamp
-    		// var javascript_time = new Date(unix_time * 1000);//Convert the unix time stamp to javascript
-    		// console.log(javascript_time);
-    		// console.log(javascript_time.getDay());
+        var unix_time = data.currently.time;//Retrieve the current timestamp
+    		var javascript_time = new Date(unix_time * 1000);//Convert the unix time stamp to javascript
+    		console.log(javascript_time);
+    		console.log(javascript_time.getDay());
+        for(var i = -1; i < javascript_time.getDay(); i++)
+        {
+          week_names.push(week_names.shift());
+        }
+        console.log(week_names);
         document.getElementById('image_today').src = 'img/' + data.currently.icon + '.png';
         document.getElementById('icon_today').innerHTML = data.currently.icon;
         document.getElementById('temp_today').innerHTML = data.currently.apparentTemperature;
@@ -85,9 +90,8 @@
         document.getElementById('summary_today').innerHTML = data.currently.summary;
         // console.log(data.daily.length(0));
         str = '';
-        for(i = 1; i < 7; i++)
+        for(i = 0; i < 6; i++)
         {
-          // console.log(data.daily.data[i]);
           temp = '<div class="col-2"><div class="card"><img class="card-img-top" src= img/' + data.daily.data[i].icon + '.png alt='+ data.daily.data[i].icon +'><div class="card-body"><h5 class="card-title">'+ week_names[i] +' <p class="card-text">High: '+data.daily.data[i].temperatureHigh+'\nLow: '+data.daily.data[i].temperatureLow+'</div></div></div>\n'
           str = str.concat(temp);
         }
